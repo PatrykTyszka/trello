@@ -22,6 +22,7 @@ defmodule Trello.Router do
     get "/", PageController, :index
     get "/session/new", SessionController, :new, as: :new_session
     post "/sign_in", SessionController, :create
+    delete "/sign_out", SessionController, :destroy, as: :destroy_session
   end
 
   scope "/boards", Trello do

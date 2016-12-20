@@ -1,3 +1,4 @@
+<p><a href="<%= page_path(@conn, :index) %>">Home Page</a></p>
 <h1>Login</h1>
 
 <%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
@@ -11,3 +12,5 @@
 
   <%= submit "Log in", class: "btn btn-primary" %>
 <% end %>
+
+
