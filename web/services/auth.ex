@@ -15,6 +15,10 @@ defmodule Trello.Auth do
     assign(conn, :current_user, user)
   end
 
+  def current_user(conn) do
+    conn.assigns.current_user
+  end
+
   def login_by_username(conn, username, password, opts) do
     repo = Keyword.fetch!(opts, :repo)
     user = repo.get_by(Trello.User, username: username)

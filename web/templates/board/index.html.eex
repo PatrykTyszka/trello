@@ -5,6 +5,7 @@
       <th>ID</th>
       <th>Name</th>
       <th>Owner</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,7 @@
           <td><%= board.id %></td>
           <td><%= board.name %></td>
           <td><%= owner(board).username %></td>
+          <td><%= link "Show", to: show_board_path(@conn, :show, board.id) %></td>
         </tr>
     <% end %>
   </tbody>

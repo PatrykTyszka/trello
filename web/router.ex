@@ -29,5 +29,6 @@ defmodule Trello.Router do
     pipe_through [:browser, :authenticate_user]
 
     get "/", BoardController, :index, as: :index_boards
+    get "/:id", BoardController, :show, as: :show_board
   end
 end
