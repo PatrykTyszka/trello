@@ -28,6 +28,6 @@ defmodule Trello.Router do
   scope "/boards", Trello do
     pipe_through [:browser, :authenticate_user]
 
-    get "/", BoardController, :index
+    get "/", BoardController, :index, as: :index_boards
   end
 end

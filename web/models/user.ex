@@ -6,6 +6,8 @@ defmodule Trello.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    has_many :boards, Trello.Board
+
     timestamps
   end
 

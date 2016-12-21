@@ -1,1 +1,19 @@
-<h1>Boards</h1>
+<h3> Boards: </h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for board <- @boards do %>
+        <tr>
+          <td><%= board.id %></td>
+          <td><%= board.name %></td>
+          <td><%= owner(board).username %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

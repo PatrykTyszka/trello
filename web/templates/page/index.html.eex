@@ -1,5 +1,6 @@
 <div>
   <%= if @conn.assigns.current_user do %>
+    <p><%= link "Boards", to: index_boards_path(@conn, :index)%></p>
     <p><%= link "Log out", to: destroy_session_path(@conn, :destroy), method: :delete %></p>
   <% else %>
     <p><%= link "Sign in page", to: new_session_path(@conn, :new) %></p>
