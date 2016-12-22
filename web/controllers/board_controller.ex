@@ -5,7 +5,7 @@ defmodule Trello.BoardController do
 
   alias Trello.{Board, Repo}
 
-  def index(conn, params) do
+  def index(conn, _params) do
     boards = Repo.all(from b in Board, where: b.owner_id == ^current_user(conn).id)
     conn
     |> put_status(200)

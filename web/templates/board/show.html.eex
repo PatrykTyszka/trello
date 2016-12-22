@@ -1,1 +1,22 @@
 <h1><%= "Board: #{@board.name}" %></h1>
+
+<div id="messages"></div>
+<input id="add-column" type="text"></input>
+
+<h3> Columns: </h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody id="table-column">
+    <%= for column <- columns(@board) do %>
+        <tr>
+          <td><%= column.id %></td>
+          <td><%= column.title %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

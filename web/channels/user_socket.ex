@@ -2,7 +2,7 @@ defmodule Trello.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Trello.RoomChannel
+  channel "board:*", Trello.BoardChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

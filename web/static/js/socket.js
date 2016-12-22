@@ -54,7 +54,25 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel           = socket.channel("board:management", {})
+let addColumnInput    = document.querySelector("#add-column")
+let messagesContainer = document.querySelector("#table-column")
+
+addColumnInput.addEventListener("keypress", event => {
+  if(event.keyCode === 13){
+    let id = window.location.pathname.split('/')[2]
+    channel.push("board:add_column", {title: addColumnInput.value, id: id})
+    addColumnInput.value = ""
+  }
+})
+
+channel.on("board:add_column", payload => {
+  let row = document.createElement("tr");
+  row.insertCell(0).innerHTML = `${payload.id}`;
+  row.insertCell(1).innerHTML = `${payload.title}`;
+  messagesContainer.appendChild(row)
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })

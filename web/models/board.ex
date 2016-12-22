@@ -3,6 +3,8 @@ defmodule Trello.Board do
 
   schema "boards" do
     field :name, :string
+
+    has_many :columns, Trello.Column
     belongs_to :owner, Trello.User, foreign_key: :owner_id
 
     timestamps

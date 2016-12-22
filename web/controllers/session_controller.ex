@@ -1,7 +1,7 @@
 defmodule Trello.SessionController do
   use Trello.Web, :controller
 
-  alias Trello.{User, Repo, Auth}
+  alias Trello.{Repo, Auth}
 
   def new(conn, _) do
     conn |> render(:new)

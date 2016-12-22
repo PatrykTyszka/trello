@@ -6,4 +6,8 @@ defmodule Trello.BoardView do
   def owner(board) do
     Repo.preload(board, :owner).owner
   end
+
+  def columns(board) do
+    Repo.preload(board, :columns).columns
+  end
 end
