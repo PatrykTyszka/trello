@@ -13,12 +13,10 @@ defmodule Trello.BoardChannel do
     changeset = Column.changeset(%Column{}, %{title: title, board_id: id})
     case Repo.insert(changeset) do
       {:ok, column} ->
-        IO.puts "OK"
         payload = %{title: column.title, id: column.id}
         broadcast! socket, "board:add_column", payload
         {:reply, {:ok, %{body: payload}}, socket}
       {:error, changeset} ->
-        IO.puts "ERROR"
         {:reply, %{errors: changeset.errors, message: "Could not create column!"}, socket}
     end
   end

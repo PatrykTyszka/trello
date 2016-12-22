@@ -1,6 +1,7 @@
 defmodule Trello.UserSocket do
   use Phoenix.Socket
 
+  alias Trello.{Repo, User}
   ## Channels
   channel "board:*", Trello.BoardChannel
 
@@ -19,10 +20,16 @@ defmodule Trello.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
-  end
 
+  def connect(%{"token" => token}, socket) do
+    case Phoenix.Token.verify(socket, "user", token, max_age: 86400) do
+      {:ok, user_id} ->
+        socket = assign(socket, :current_user, Repo.get!(User, user_id))
+        {:ok, socket}
+      {:error, _} ->
+        :error
+    end
+  end
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
   #     def id(socket), do: "users_socket:#{socket.assigns.user_id}"

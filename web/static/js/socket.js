@@ -5,7 +5,17 @@
 // and connect at the socket path in "lib/my_app/endpoint.ex":
 import {Socket} from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+function getToken() {
+   var metas = document.getElementsByTagName('meta');
+
+   for (var i=0; i < metas.length; i++) {
+      if (metas[i].getAttribute("name") == "channel_token") {
+         return metas[i].getAttribute("content");
+      }
+   }
+   return "";
+}
+let socket = new Socket("/socket", {params: {token: getToken()}})
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -55,16 +65,22 @@ socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
 let channel           = socket.channel("board:management", {})
-let addColumnInput    = document.querySelector("#add-column")
-let messagesContainer = document.querySelector("#table-column")
+let splited_path      = window.location.pathname.split('/')
 
-addColumnInput.addEventListener("keypress", event => {
-  if(event.keyCode === 13){
-    let id = window.location.pathname.split('/')[2]
-    channel.push("board:add_column", {title: addColumnInput.value, id: id})
-    addColumnInput.value = ""
-  }
-})
+// Listeners
+if (splited_path[1] == 'boards' && splited_path[2] != undefined){
+  let addColumnInput    = document.querySelector("#add-column")
+
+  addColumnInput.addEventListener("keypress", event => {
+    if(event.keyCode === 13){
+      let id = window.location.pathname.split('/')[2]
+      channel.push("board:add_column", {title: addColumnInput.value, id: id})
+      addColumnInput.value = ""
+    }
+  })
+}
+
+let messagesContainer = document.querySelector("#table-column")
 
 channel.on("board:add_column", payload => {
   let row = document.createElement("tr");
